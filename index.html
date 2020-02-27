@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="./img/icon.PNG" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <noscript
+      >Sayfanın doğru şekilde çalışabilmesi için tarayıcınızın ayarlarında
+      JavaScript'i aktif etmeniz gerekmektedir.</noscript
+    >
+    <div class="container">
+      <h1 class="text-center m-4 p-4">
+        İki Katlı Üç Açıklıklı Çerçeve Eleman Analizi <br />
+        (Açı Metodu İle)
+      </h1>
+      <div class="row">
+        <div class="col-sm-12 col-md-8 offset-md-2">
+          <img src="./img/cerceve.png" alt="cerceve" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="data-entry">
+            <div class="form-check form-check-large">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="exampleRadios"
+                id="dikdortgen"
+                value="option1"
+              />
+              <label class="form-check-label" for="dikdortgen">
+                Kolonların tümü dikdörtgen
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="exampleRadios"
+                id="daire"
+                value="option2"
+                disabled
+              />
+              <label class="form-check-label" for="daire">
+                Kolonların tümü daire
+              </label>
+            </div>
+            <p
+              id="calculatedColumnProfile"
+              class="calculatedColumnProfile text-danger p-4 font-weight-bold"
+            >
+              Kolon enkesitini seçiniz
+            </p>
+            <h4>Bilinmeyenler</h4>
+            <ul>
+              <li>
+                Düğüm noktaları dönmeleri Ø<sub>5</sub>, Ø<sub>6</sub>,
+                Ø<sub>7</sub>, Ø<sub>8</sub>, Ø<sub>9</sub>, Ø<sub>10</sub>,
+                Ø<sub>11</sub>, Ø<sub>12</sub>, ( Ø<sub>1</sub> = Ø<sub>2</sub>
+                = Ø<sub>3</sub> = Ø<sub>4</sub> = 0)
+              </li>
+              <li>
+                Kat kolonları rölatif yerdeğiştirmeleri &#948;<sub>1</sub>,
+                &#948;<sub>2</sub>
+              </li>
+            </ul>
+            <form id="rectangle_form">
+              <div class="outlined">
+                <h2 class="my-2">BOYUTLANDIRMA</h2>
+                <p class="text-danger my-2">
+                  Veri girerken uzunluk birimlerine dikkat ediniz.
+                </p>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="kx">Kiriş enkesiti - y yönünde (cm)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="kx"
+                      value="50"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="ky">Kiriş enkesiti - z yönünde (cm)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ky"
+                      value="25"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="ax"
+                      >1-5 ve 5-9 kolon enkesiti - x yönünde (cm)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ax"
+                      value="30"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="column_a_y"
+                      >1-5 ve 5-9 kolon enkesiti - z yönünde (cm)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ay"
+                      value="60"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="bx"
+                      >2-6 ve 6-10 kolon enkesiti - x yönünde (cm)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="bx"
+                      value="60"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="by"
+                      >2-6 ve 6-10 kolon enkesiti - z yönünde (cm)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="by"
+                      value="30"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="cx"
+                      >3-7 ve 7-11 kolon enkesiti - x yönünde (cm)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="cx"
+                      value="30"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="cy"
+                      >3-7 ve 7-11 kolon enkesiti - z yönünde (cm)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="cy"
+                      value="60"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="dx"
+                      >4-8 ve 8-12 kolon enkesiti - x yönünde (cm)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="dx"
+                      value="60"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="dy"
+                      >4-8 ve 8-12 kolon enkesiti - z yönünde (cm)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="dy"
+                      value="30"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="a_b">A açıklığı (m)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="a_b"
+                      value="6"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="b_c">B açıklığı (m)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="b_c"
+                      value="4"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="c_d">C açıklığı (m)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="c_d"
+                      value="5"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="h1">h1 yüksekliği (m)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="h1"
+                      value="4.2"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="h2">h2 yüksekliği (m)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="h2"
+                      value="3.2"
+                      onfocus="this.value=''"
+                    />
+                  </div>
+                </div>
+                <hr />
+                <h2 class="my-2">YÜK DAĞILIMI</h2>
+                <p class="text-danger my-2">
+                  Kirişler üzerindeki tüm yükler düzgün yayılı ve ölü yük kabul
+                  edilecektir.
+                </p>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="g_5_6">5-6 kirişi ölü yük (kN/m)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="g_5_6"
+                      value="18.3"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="g_6_7">6-7 kirişi ölü yük (kN/m)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="g_6_7"
+                      value="12.5"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="g_7_8">7-8 kirişi ölü yük (kN/m)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="g_7_8"
+                      value="15.7"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="col">
+                    <label for="g_9_10">9-10 kirişi ölü yük (kN/m)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="g_9_10"
+                      value="10.5"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="g_10_11">10-11 kirişi ölü yük (kN/m)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="g_10_11"
+                      value="5.2"
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="g_11_12">11-12 kirişi ölü yük (kN/m)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="g_11_12"
+                      value="7.9"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <input
+                    id="hesapla"
+                    type="button"
+                    class="form-control form-control-lg btn btn-success"
+                    value="HESAPLA"
+                  />
+                </div>
+              </div>
+              <!-- spinner -->
+              <div class="row">
+                <div class="col-md-4 offset-md-4 text-center">
+                  <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- daire form -->
+            <form id="circle_form">
+              <div class="form-row">
+                <div class="col">
+                  <label for="column-a-r">1-1 aksı yarıçapı (cm)</label>
+                  <input type="text" class="form-control" id="column-a-r" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <label for="column-b-r">2-2 aksı kolon yarıçapı (cm)</label>
+                  <input type="text" class="form-control" id="column-b-r" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <label for="column-c-r">3-3 aksı kolon yarıçapı (cm)</label>
+                  <input type="text" class="form-control" id="column-c-r" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <label for="column-d-r">4-4 aksı kolon yarıçapı (cm)</label>
+                  <input type="text" class="form-control" id="column-d-r" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <label for="distance-a-b">1-1 & 2-2 ara mesafe (cm)</label>
+                  <input type="text" class="form-control" id="distance-a-b" />
+                </div>
+                <div class="col">
+                  <label for="distance-b-c">2-2 & 3-3 ara mesafe (cm)</label>
+                  <input type="text" class="form-control" id="distance-b-c" />
+                </div>
+                <div class="col">
+                  <label for="distance-c-d">3-3 & 4-4 ara mesafe (cm)</label>
+                  <input type="text" class="form-control" id="distance-c-d" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <input
+                    type="button"
+                    class="form-control form-control-lg btn btn-success"
+                    value="HESAPLA"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- sonuclar -->
+      <div id="results" class="results">
+        <div class="row">
+          <div class="col-12">
+            <ul class="text-danger my-2" id="error_list"></ul>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-5 my-4">
+            <h5>ATALET MOMENTLERİ</h5>
+            <p class="text-info">
+              * En küçük atalet momentine göre oranlanmıştır.
+            </p>
+            <p id="atalet_degerleri" class="formula lead my-2">
+              b * h<sup>3</sup>/12
+            </p>
+          </div>
+          <div class="col-7 my-4">
+            <div class="results">
+              <h5>k DEĞERLERİ</h5>
+              <p id="k_degerleri" class="formula lead my-2">
+                <b>2EI / L</b>
+              </p>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-12">
+            <h5>ANKASTRELİK MOMENTLERİN HESAPLANMASI</h5>
+            <p id="ankastrelik_momentleri" class="formula lead my-2">
+              <b>1 / 12 * qL<sup>2</sup> </b>
+            </p>
+          </div>
+        </div>
+        <hr />
+        <div class="row my-2">
+          <div class="col-12">
+            <h5 id="katsayilar_matrisi">
+              KATSAYILAR MATRİSİ (K)
+            </h5>
+          </div>
+        </div>
+        <hr />
+        <div class="row my-2">
+          <div class="col-12">
+            <h5 id="sabitler_matrisi">
+              SABİTLER MATRİSİ
+            </h5>
+          </div>
+        </div>
+        <hr />
+        <div class="row my-2">
+          <div class="col-12">
+            <h5 id="bilinmeyenler">
+              KATSAYILAR MATRİSİNİN TERSİ (K<sup>-1</sup>) İLE SABİTLER
+              MATRİSİNİN ÇARPIMI SONUCU BİLİNMEYENLERİN BULUNMASI
+            </h5>
+          </div>
+        </div>
+        <hr />
+        <div class="row my-2">
+          <div class="col-12">
+            <h5>
+              ÇUBUK UÇ MOMENTLERİNİN HESABI
+            </h5>
+            <p id="cubuk_uc_momentleri" class="formula lead my-2">
+              <b
+                >M<sub>ik</sub> = k(2Ø<sub>i</sub> + Ø<sub>k</sub> -
+                3&#948;<sub>ik</sub>/l) + M<sub>atalet</sub>
+              </b>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="text-center my-4 p-2">
+      <p class="text-muted">
+        <small>
+          Bu uygulama Altuğhan Özengi tarafından eğitim amaçlı kullanılması
+          amacıyla hazırlanmıştır. Sayfa içeriği ve kodu kopyalanamaz, başka
+          sayfalarda yayınlanamaz, ticari amaçla kullanılamaz. Ancak sayfaya
+          link verilebilir.</small
+        >
+      </p>
+      <p class="text-muted">
+        Tüm hakları saklıdır &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+      </p>
+    </footer>
+    <script src="./js/bundle.js"></script>
+  </body>
+</html>
